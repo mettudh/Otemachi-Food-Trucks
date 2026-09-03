@@ -37,23 +37,24 @@ JST = datetime.timezone(datetime.timedelta(hours=9))
 
 MELLOW_MARKETS = [
     {"name": "Otemachi Place", "addr": "2-3-1 \u014ctemachi, Chiyoda-ku, Tokyo",
-     "dist": "~110 m", "url": "https://schedule.mellow.jp/ss_web/markets/G7TyQW"},
+     "dist": "~110 m", "url": "https://schedule.mellow.jp/ss_web/markets/G7TyQW", "maps": "35.6868348,139.7676822"},
     {"name": "TOKYO TORCH Park", "addr": "2-6-4 \u014ctemachi, Chiyoda-ku, Tokyo",
-     "dist": "~330 m", "url": "https://schedule.mellow.jp/ss_web/markets/1362"},
+     "dist": "~330 m", "url": "https://schedule.mellow.jp/ss_web/markets/1362", "maps": "35.684055,139.770587"},
     {"name": "Otemachi Park Building (Ascott side)", "addr": "1-1-1 \u014ctemachi, Chiyoda-ku, Tokyo",
-     "dist": "~390 m", "url": "https://schedule.mellow.jp/ss_web/markets/xVTjJY"},
+     "dist": "~390 m", "url": "https://schedule.mellow.jp/ss_web/markets/xVTjJY", "maps": "35.686639,139.763404"},
     {"name": "Otemachi One", "addr": "1-2-1 \u014ctemachi, Chiyoda-ku, Tokyo",
-     "dist": "~430 m", "url": "https://schedule.mellow.jp/ss_web/markets/r8Tmnd"},
+     "dist": "~430 m", "url": "https://schedule.mellow.jp/ss_web/markets/r8Tmnd", "maps": "35.68742,139.76185"},
     {"name": "Hotoria Square", "addr": "1-1-1 \u014ctemachi (Otemachi Park Building), Chiyoda-ku, Tokyo",
-     "dist": "~490 m", "url": "https://schedule.mellow.jp/ss_web/markets/MmTd7k"},
+     "dist": "~490 m", "url": "https://schedule.mellow.jp/ss_web/markets/MmTd7k", "maps": "35.686607,139.762823"},
     {"name": "Otemachi Godo Chosha (Bldg 3)", "addr": "1-3-3 \u014ctemachi, Chiyoda-ku, Tokyo",
-     "dist": "~570 m", "url": "https://schedule.mellow.jp/ss_web/markets/aPTpMb"},
+     "dist": "~570 m", "url": "https://schedule.mellow.jp/ss_web/markets/aPTpMb", "maps": "35.68959,139.762732"},
 ]
 
 SANKEI = {
     "name": "Neo Yataimura (Tokyo Sankei Bldg)",
     "addr": "Tokyo Sankei Building, 1-7-2 \u014ctemachi, Chiyoda-ku, Tokyo",
     "dist": "~150 m",
+    "maps": "35.6869391,139.7659595",
     "url": "https://www.metrosquare.jp/foodtruck/index",
 }
 
@@ -61,6 +62,7 @@ KAWABATA = {
     "name": "Otemachi Kawabata Food Garden",
     "addr": "\u014ctemachi Kawabata Promenade, 1-9 \u014ctemachi, Chiyoda-ku, Tokyo",
     "dist": "~290 m",
+    "maps": "35.688493,139.7663448",
     "url": "https://otemachi-foodgarden.com/list",
     "note": "This site publishes a \u201cusual weekday lineup\u201d rather than confirming exact "
             "trucks per date, and most days have several more vendors beyond what's listed "
@@ -383,7 +385,8 @@ def build():
         if not entries:
             note = "No advance calendar currently published on Mellow for this spot."
         locations.append({"name": market["name"], "addr": market["addr"],
-                           "dist": market["dist"], "note": note, "sched": sched})
+                           "dist": market["dist"], "maps": market.get("maps"),
+                           "note": note, "sched": sched})
 
     # --- Sankei Building ---
     sankei_by_date, sankei_info = parse_sankei(SANKEI["url"], dates)
@@ -400,7 +403,7 @@ def build():
         else:
             sched[label] = "NP"
     locations.insert(1, {
-        "name": SANKEI["name"], "addr": SANKEI["addr"], "dist": SANKEI["dist"],
+        "name": SANKEI["name"], "addr": SANKEI["addr"], "dist": SANKEI["dist"], "maps": SANKEI.get("maps"),
         "note": None if got_any else "metrosquare.jp did not return a parseable weekly schedule this run.",
         "sched": sched,
     })
@@ -419,7 +422,7 @@ def build():
                             info.get("link"), info.get("img"))
             sched[label].append(info.get("name", nm))
     locations.insert(2, {
-        "name": KAWABATA["name"], "addr": KAWABATA["addr"], "dist": KAWABATA["dist"],
+        "name": KAWABATA["name"], "addr": KAWABATA["addr"], "dist": KAWABATA["dist"], "maps": KAWABATA.get("maps"),
         "note": KAWABATA["note"], "sched": sched,
     })
 
@@ -456,7 +459,12 @@ def render(date_labels, locations, trucks):
     thead = "<tr><th class=\"loc-col\">Location</th>" + "".join(f"<th>{esc(d)}</th>" for d in date_labels) + "</tr>"
     rows = []
     for loc in locations:
-        tds = (f'<td class="loc-col"><span class="loc-name">{esc(loc["name"])}</span>'
+        maps_url = None
+        if loc.get("maps"):
+            maps_url = f'https://www.google.com/maps/search/?api=1&query={loc["maps"]}'
+        name_html = (f'<a class="loc-map-link" href="{esc(maps_url)}" target="_blank" rel="noopener">{esc(loc["name"])}</a>'
+                     if maps_url else esc(loc["name"]))
+        tds = (f'<td class="loc-col"><span class="loc-name">{name_html}</span>'
                f'<span class="loc-meta">{esc(loc["addr"])} &middot; {esc(loc["dist"])}</span>')
         if loc.get("note"):
             tds += f'<span class="loc-note">{esc(loc["note"])}</span>'
@@ -521,6 +529,8 @@ def render(date_labels, locations, trucks):
   .schedule td {{ padding: 12px; border-bottom: 1px solid var(--line); vertical-align: top; }}
   .loc-col {{ width: 240px; min-width: 200px; }}
   .loc-name {{ display:block; font-weight: 700; font-size: 14.5px; margin-bottom: 3px; }}
+  a.loc-map-link { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); }
+  a.loc-map-link:hover { border-bottom-color: var(--rust); color: var(--rust); }
   .loc-meta {{ display:block; color: var(--muted); font-size: 12px; margin-bottom: 4px; }}
   .loc-note {{ display:block; color: var(--olive); font-size: 11.5px; font-style: italic; }}
   a.truck-link {{ color: var(--rust); text-decoration: none; border-bottom: 1px dotted var(--rust); }}
