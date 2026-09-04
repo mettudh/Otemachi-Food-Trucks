@@ -6,162 +6,53 @@
 <title>Otemachi Kitchen Car Finder</title>
 <style>
   :root {
-    --paper: #f7f3ea;
-    --ink: #2b241b;
-    --rust: #b5502e;
-    --olive: #5c6b47;
-    --line: #d8cdb8;
-    --muted: #8a7f68;
-    --card: #fffdf7;
+    --paper: #f7f3ea; --ink: #2b241b; --rust: #b5502e; --olive: #5c6b47;
+    --line: #d8cdb8; --muted: #8a7f68; --card: #fffdf7;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body {
-    margin: 0;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: "Iowan Old Style","Georgia","Hiragino Mincho ProN", serif;
-    line-height: 1.5;
-  }
-  header {
-    padding: 48px 6vw 28px;
-    border-bottom: 3px solid var(--ink);
-  }
-  .kicker {
-    font-family: "Helvetica Neue", Arial, sans-serif;
-    font-size: 13px;
-    letter-spacing: 0.04em;
-    color: var(--rust);
-    margin: 0 0 10px;
-  }
-  h1 {
-    font-size: clamp(32px, 5vw, 54px);
-    margin: 0 0 12px;
-    font-weight: 600;
-    line-height: 1.05;
-  }
-  .sub {
-    font-family: "Helvetica Neue", Arial, sans-serif;
-    max-width: 620px;
-    color: var(--muted);
-    font-size: 15.5px;
-  }
-  nav.jump {
-    font-family: "Helvetica Neue", Arial, sans-serif;
-    font-size: 13.5px;
-    margin-top: 20px;
-  }
-  nav.jump a {
-    color: var(--ink);
-    text-decoration: none;
-    border-bottom: 1px solid var(--rust);
-    margin-right: 22px;
-    padding-bottom: 2px;
-  }
-  section {
-    padding: 40px 6vw;
-  }
-  section#trucks {
-    background: var(--card);
-    border-top: 3px solid var(--ink);
-  }
-  h2 {
-    font-family: "Helvetica Neue", Arial, sans-serif;
-    font-weight: 700;
-    font-size: 22px;
-    margin: 0 0 6px;
-  }
-  .section-note {
-    font-family: "Helvetica Neue", Arial, sans-serif;
-    color: var(--muted);
-    font-size: 14px;
-    max-width: 640px;
-    margin: 0 0 26px;
-  }
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    font-family: "Helvetica Neue", Arial, sans-serif;
-  }
-  .schedule {
-    font-size: 14px;
-  }
-  .schedule th {
-    text-align: left;
-    font-weight: 700;
-    font-size: 12.5px;
-    letter-spacing: 0.02em;
-    padding: 10px 12px;
-    border-bottom: 2px solid var(--ink);
-    white-space: nowrap;
-  }
-  .schedule td {
-    padding: 12px;
-    border-bottom: 1px solid var(--line);
-    vertical-align: top;
-  }
+  body { margin: 0; background: var(--paper); color: var(--ink);
+    font-family: "Iowan Old Style","Georgia","Hiragino Mincho ProN", serif; line-height: 1.5; }
+  header { padding: 48px 6vw 28px; border-bottom: 3px solid var(--ink); }
+  .kicker { font-family: "Helvetica Neue", Arial, sans-serif; font-size: 13px;
+    letter-spacing: 0.04em; color: var(--rust); margin: 0 0 10px; }
+  h1 { font-size: clamp(32px, 5vw, 54px); margin: 0 0 12px; font-weight: 600; line-height: 1.05; }
+  .sub { font-family: "Helvetica Neue", Arial, sans-serif; max-width: 620px; color: var(--muted); font-size: 15.5px; }
+  .updated { font-family: "Helvetica Neue", Arial, sans-serif; font-size: 12px; color: var(--muted); margin-top: 14px; }
+  nav.jump { font-family: "Helvetica Neue", Arial, sans-serif; font-size: 13.5px; margin-top: 20px; }
+  nav.jump a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--rust); margin-right: 22px; padding-bottom: 2px; }
+  section { padding: 40px 6vw; }
+  section#trucks { background: var(--card); border-top: 3px solid var(--ink); }
+  h2 { font-family: "Helvetica Neue", Arial, sans-serif; font-weight: 700; font-size: 22px; margin: 0 0 6px; }
+  .section-note { font-family: "Helvetica Neue", Arial, sans-serif; color: var(--muted); font-size: 14px; max-width: 640px; margin: 0 0 26px; }
+  table { border-collapse: collapse; width: 100%; font-family: "Helvetica Neue", Arial, sans-serif; }
+  .schedule { font-size: 14px; }
+  .schedule th { text-align: left; font-weight: 700; font-size: 12.5px; letter-spacing: 0.02em;
+    padding: 10px 12px; border-bottom: 2px solid var(--ink); white-space: nowrap; }
+  .schedule td { padding: 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
   .loc-col { width: 240px; min-width: 200px; }
   .loc-name { display:block; font-weight: 700; font-size: 14.5px; margin-bottom: 3px; }
   a.loc-map-link { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); }
   a.loc-map-link:hover { border-bottom-color: var(--rust); color: var(--rust); }
   .loc-meta { display:block; color: var(--muted); font-size: 12px; margin-bottom: 4px; }
   .loc-note { display:block; color: var(--olive); font-size: 11.5px; font-style: italic; }
-  a.truck-link {
-    color: var(--rust);
-    text-decoration: none;
-    border-bottom: 1px dotted var(--rust);
-  }
+  a.truck-link { color: var(--rust); text-decoration: none; border-bottom: 1px dotted var(--rust); }
   a.truck-link:hover { border-bottom-style: solid; }
   .empty { color: var(--muted); font-size: 13px; font-style: italic; }
   .directory { font-size: 14px; }
-  .directory th {
-    text-align: left;
-    font-weight: 700;
-    font-size: 12.5px;
-    padding: 8px 10px;
-    border-bottom: 2px solid var(--ink);
-  }
-  .directory td {
-    padding: 10px;
-    border-bottom: 1px solid var(--line);
-    vertical-align: middle;
-  }
-  .directory tr:target, .directory tr.js-target {
-    background: #fbe7c8;
-  }
+  .directory th { text-align: left; font-weight: 700; font-size: 12.5px; padding: 8px 10px; border-bottom: 2px solid var(--ink); }
+  .directory td { padding: 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+  .directory tr:target, .directory tr.js-target { background: #fbe7c8; }
   .photo-cell { width: 64px; }
-  .truck-photo {
-    width: 56px; height: 56px; object-fit: cover;
-    border-radius: 4px;
-    display: block;
-    border: 1px solid var(--line);
-  }
-  .truck-photo.placeholder {
-    background: var(--line);
-  }
+  .truck-photo { width: 56px; height: 56px; object-fit: cover; border-radius: 4px; display: block; border: 1px solid var(--line); }
+  .truck-photo.placeholder { background: var(--line); }
   .name-cell { min-width: 150px; }
   .tname { font-weight: 700; }
-  a.ext-link {
-    color: var(--olive);
-    text-decoration: none;
-    font-size: 13px;
-    white-space: nowrap;
-  }
+  a.ext-link { color: var(--olive); text-decoration: none; font-size: 13px; white-space: nowrap; }
   a.ext-link:hover { text-decoration: underline; }
-  footer {
-    padding: 26px 6vw 50px;
-    font-family: "Helvetica Neue", Arial, sans-serif;
-    font-size: 12.5px;
-    color: var(--muted);
-  }
-  .table-scroll {
-    overflow-x: auto;
-    border: 1px solid var(--line);
-  }
-  @media (max-width: 720px) {
-    header { padding: 34px 5vw 22px; }
-    section { padding: 30px 5vw; }
-  }
+  footer { padding: 26px 6vw 50px; font-family: "Helvetica Neue", Arial, sans-serif; font-size: 12.5px; color: var(--muted); }
+  .table-scroll { overflow-x: auto; border: 1px solid var(--line); }
+  @media (max-width: 720px) { header { padding: 34px 5vw 22px; } section { padding: 30px 5vw; } }
 </style>
 </head>
 <body>
@@ -169,589 +60,551 @@
 <header>
   <p class="kicker">URBANNET ŌTEMACHI &middot; LUNCH FIELD GUIDE</p>
   <h1>Where the trucks are today</h1>
-  <p class="sub">The eight closest kitchen&nbsp;car spots to Urbannet Ōtemachi, with confirmed vendors for today and the next four weekdays. Tap any truck name to jump straight to its listing below.</p>
-  <nav class="jump">
-    <a href="#schedule">Schedule</a>
-    <a href="#trucks">Truck directory</a>
-  </nav>
+  <p class="sub">The eight closest kitchen&nbsp;car spots to Urbannet Ōtemachi, with vendors for today and the next four weekdays. Tap any truck name to jump to its listing below.</p>
+  <p class="updated">Last rebuilt 2026-09-04 11:09 JST &middot; refreshes automatically once a day</p>
+  <nav class="jump"><a href="#schedule">Schedule</a><a href="#trucks">Truck directory</a></nav>
 </header>
 
 <section id="schedule">
   <h2>Locations &amp; schedule</h2>
-  <p class="section-note">Ranked by distance from Urbannet Ōtemachi. Data pulled from Mellow SHOP STOP, the Tokyo Sankei Building's own food-truck page, and the Otemachi Kawabata Food Garden site — double-check on the day, since trucks occasionally swap for weather or sell out early.</p>
-  <div class="table-scroll">
-  <table class="schedule"><thead><tr><th class="loc-col">Location</th><th>Thu 9/3</th><th>Fri 9/4</th><th>Mon 9/7</th><th>Tue 9/8</th><th>Wed 9/9</th></tr></thead><tbody><tr><td class="loc-col"><span class="loc-name"><a class="loc-map-link" href="https://www.google.com/maps/search/?api=1&query=35.6868348,139.7676822" target="_blank" rel="noopener">Otemachi Place</a></span><span class="loc-meta">2-3-1 Ōtemachi, Chiyoda-ku, Tokyo &middot; ~110 m</span></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-x">まま事屋</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-se-or-coppe">Señor Coppe</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-sato-kebab">SATO KEBAB</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-smile-tokyo">SMILE TOKYO</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-kopi-bali-truck">Kopi Bali Truck</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-ks-curry-kitchen">Ks curry kitchen</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-kimmy-s-deli">Kimmy&#x27;s Deli</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-rink-cafe-104">RINK CAFE 104</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-x-2">サンドリヨン</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-kuokoa">KUOKOA</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-gotou-kitchen-car">GOTOU kitchen car</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-x-3">アイランド</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-churrascaria-que-bom">Churrascaria Que bom!</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-4">西京屋 周</a></td></tr><tr><td class="loc-col"><span class="loc-name"><a class="loc-map-link" href="https://www.google.com/maps/search/?api=1&query=35.6869391,139.7659595" target="_blank" rel="noopener">Neo Yataimura (Tokyo Sankei Bldg)</a></span><span class="loc-meta">Tokyo Sankei Building, 1-7-2 Ōtemachi, Chiyoda-ku, Tokyo &middot; ~150 m</span><span class="loc-note">Metrosquare.jp publishes one calendar week at a time; Mon–Wed of next week wasn&#x27;t live yet as of writing.</span></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-addict">ADDICT</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-29">ピエニ キッサ</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-30">米結</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-31">パラダイス</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-32">ぞうさん食堂</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-tokyo-paella">Tokyo Paella</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-izumi-express">IZUMI EXPRESS</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-33">スマイルスパイス</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-34">ビストロカルロス</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-35">カーニャパッソ</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-36">てふてふ</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-wellvide">wellvide</a></td><td><span class="empty">not yet posted</span></td><td><span class="empty">not yet posted</span></td><td><span class="empty">not yet posted</span></td></tr><tr><td class="loc-col"><span class="loc-name"><a class="loc-map-link" href="https://www.google.com/maps/search/?api=1&query=35.688493,139.7663448" target="_blank" rel="noopener">Otemachi Kawabata Food Garden</a></span><span class="loc-meta">Ōtemachi Kawabata Promenade, 1-9 Ōtemachi, Chiyoda-ku, Tokyo &middot; ~290 m</span><span class="loc-note">This site lists a “usual weekday lineup” rather than confirming exact trucks per date, and each day has several more vendors beyond what&#x27;s named (他多数).</span></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-x-24">アップサイズ</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-27">ミラクルキッチン</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-12">ベッラクキッチン</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-17">天神山</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-28">ごっさむ</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-mr-halal">Mr.HALAL</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-23">吉野家</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-oji">OJI飯</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-19">キッチンあがいてぃーら</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-tabeli">TABELI（タベリ）</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-manma">manma</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-18">レオ ストリート キッチン</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-x-20">東京肉骨茶</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-19">キッチンあがいてぃーら</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-besideu">グリルキッチンBesideU</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-18">レオ ストリート キッチン</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-x-21">まーちゃんほっとさん</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-es-tokyo">es.tokyo</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-95base">95BASE</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-12">ベッラクキッチン</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-22">エピス・デ・ボヌール</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-17">天神山</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-k-foods-kitchen">K FOODS KITCHEN</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-23">吉野家</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-n-s-kitchen">N&#x27;s kitchen</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-koyarim-bar">koyarim BAR</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-24">アップサイズ</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-25">長崎屋</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-sicil">SICIL</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-26">ジュリーズスパイス</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-sunday-food-service">Sunday food service</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-camosica">CAMOSICA</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-18">レオ ストリート キッチン</a></td></tr><tr><td class="loc-col"><span class="loc-name"><a class="loc-map-link" href="https://www.google.com/maps/search/?api=1&query=35.684055,139.770587" target="_blank" rel="noopener">TOKYO TORCH Park</a></span><span class="loc-meta">2-6-4 Ōtemachi, Chiyoda-ku, Tokyo &middot; ~330 m</span></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-burn">Burn.</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-12">ベッラクキッチン</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-6">肉屋のまかない弁当 やまと</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-x-3">アイランド</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-kitchen">まごころkitchenととちゃん</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-asian-tawan">ASIAN TAWAN</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-mr-chicken">Mr.Chicken★鴏飯店</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-13">パパのお店 マイストリート</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-pinos">PINOS</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-x-14">早稲田ゴールデン</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-15">ここぱんキッチン</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-chopi-rich">Chopi Rich　〜ちょっぴリッチ〜</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-x-16">バインミー☆サンドイッチ</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-waka-s-kitchen">Waka&#x27;s kitchen</a></td></tr><tr><td class="loc-col"><span class="loc-name"><a class="loc-map-link" href="https://www.google.com/maps/search/?api=1&query=35.686639,139.763404" target="_blank" rel="noopener">Otemachi Park Building (Ascott side)</a></span><span class="loc-meta">1-1-1 Ōtemachi, Chiyoda-ku, Tokyo &middot; ~390 m</span></td><td><span class="empty">nothing listed</span></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-x-5">キャプテンハングリー</a></td><td><span class="empty">nothing listed</span></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-good-food-brothers-tokyo-pastamen">good food bROTHERS / TOKYO PASTAMEN</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-fuu">Fuu-</a></td><td><span class="empty">nothing listed</span></td></tr><tr><td class="loc-col"><span class="loc-name"><a class="loc-map-link" href="https://www.google.com/maps/search/?api=1&query=35.68742,139.76185" target="_blank" rel="noopener">Otemachi One</a></span><span class="loc-meta">1-2-1 Ōtemachi, Chiyoda-ku, Tokyo &middot; ~430 m</span></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-parlor-zono">PARLOR ZONO</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-efes-street-kitchen">EFES STREET KITCHEN</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-x-9">静岡食堂 すだ屋</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-food-truck-shinca">FOOD TRUCK SHINCA</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-lamb-z">Lamb&#x27;z</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-burn">Burn.</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-x-7">むら川</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-pinos">PINOS</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-smiley-creperie">Smiley Creperie</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-8">森緑食堂</a></td></tr><tr><td class="loc-col"><span class="loc-name"><a class="loc-map-link" href="https://www.google.com/maps/search/?api=1&query=35.686607,139.762823" target="_blank" rel="noopener">Hotoria Square</a></span><span class="loc-meta">1-1-1 Ōtemachi (Otemachi Park Building), Chiyoda-ku, Tokyo &middot; ~490 m</span><span class="loc-note">No advance calendar currently published on Mellow for this spot.</span></td><td><span class="empty">no calendar</span></td><td><span class="empty">no calendar</span></td><td><span class="empty">no calendar</span></td><td><span class="empty">no calendar</span></td><td><span class="empty">no calendar</span></td></tr><tr><td class="loc-col"><span class="loc-name"><a class="loc-map-link" href="https://www.google.com/maps/search/?api=1&query=35.68959,139.762732" target="_blank" rel="noopener">Otemachi Godo Chosha (Bldg 3)</a></span><span class="loc-meta">1-3-3 Ōtemachi, Chiyoda-ku, Tokyo &middot; ~570 m</span></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-cucco">CUCCO</a></td><td><span class="empty">nothing listed</span></td><td><span class="empty">nothing listed</span></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-x-10">食堂 大山</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-h-m">H&amp;Mカフェ</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-11">双美堂</a></td></tr></tbody></table>
-  </div>
+  <p class="section-note">Ranked by distance from Urbannet Ōtemachi. Pulled live from Mellow SHOP STOP, the Tokyo Sankei Building's own food-truck page, and Otemachi Kawabata Food Garden — still worth a same-day check, since trucks occasionally swap for weather or sell out early.</p>
+  <div class="table-scroll"><table class="schedule"><thead><tr><th class="loc-col">Location</th><th>Fri 9/4</th><th>Mon 9/7</th><th>Tue 9/8</th><th>Wed 9/9</th><th>Thu 9/10</th></tr></thead><tbody><tr><td class="loc-col"><span class="loc-name"><a class="loc-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=35.6868348,139.7676822" target="_blank" rel="noopener">Otemachi Place</a></span><span class="loc-meta">2-3-1 Ōtemachi, Chiyoda-ku, Tokyo &middot; ~110 m</span></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-smile-tokyo">SMILE TOKYO</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-kopi-bali-truck">Kopi Bali Truck</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-ks-curry-kitchen">Ks curry kitchen</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-kimmy-s-deli">Kimmy’s Deli</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-rink-cafe-104">RINK CAFE 104</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-x">サンドリヨン</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-kuokoa">KUOKOA</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-gotou-kitchen-car">GOTOU kitchen car</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-x-2">アイランド</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-churrascaria-que-bom">Churrascaria Que bom!</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-3">西京屋　周</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-x-4">まま事屋</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-se-or-coppe">Señor Coppe</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-sato-kebab">SATO KEBAB</a></td></tr><tr><td class="loc-col"><span class="loc-name"><a class="loc-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=35.6869391,139.7659595" target="_blank" rel="noopener">Neo Yataimura (Tokyo Sankei Bldg)</a></span><span class="loc-meta">Tokyo Sankei Building, 1-7-2 Ōtemachi, Chiyoda-ku, Tokyo &middot; ~150 m</span></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-izumi-express">IZUMI EXPRESS</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-19">スマイルスパイス</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-es-tokyo">es.tokyo</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-20">ビストロカルロス</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-21">カーニャパッソ</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-22">てふてふ</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-wellvide">wellvide</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-qtaro">QTARO</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-grill-tokyo">Grill Tokyo</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-mochiko-chicken-factory">MOCHIKO chicken factory</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-lasagna-italiana">Lasagna Italiana</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-mr-chicken-2">Mr.Chicken</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-23">パパガヤデリ</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-bt-massaru">BT massaru</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-tokyo">和TOKYO</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-24">台湾佐記麺線</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-mika">MIKAバインミー</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-ren">蓮 REN</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-spice">+Spice</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-25">ボナペティ</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-x-26">和食しの</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-27">ポチャ</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-manis-pedas">MANIS PEDAS</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-28">ミラーン</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-ricordo">東京RICORDO</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-kitchen-2">ぐぅとらKitchen</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-addict">ADDICT</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-29">ピエニ キッサ</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-30">米結</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-31">パラダイス</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-32">ぞうさん食堂</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-tokyo-paella">Tokyo Paella</a></td></tr><tr><td class="loc-col"><span class="loc-name"><a class="loc-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=35.688493,139.7663448" target="_blank" rel="noopener">Otemachi Kawabata Food Garden</a></span><span class="loc-meta">Ōtemachi Kawabata Promenade, 1-9 Ōtemachi, Chiyoda-ku, Tokyo &middot; ~290 m</span><span class="loc-note">This site publishes a “usual weekday lineup” rather than confirming exact trucks per date, and most days have several more vendors beyond what&#x27;s listed (他多数).</span></td><td><span class="empty">nothing listed</span></td><td><span class="empty">nothing listed</span></td><td><span class="empty">nothing listed</span></td><td><span class="empty">nothing listed</span></td><td><span class="empty">nothing listed</span></td></tr><tr><td class="loc-col"><span class="loc-name"><a class="loc-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=35.684055,139.770587" target="_blank" rel="noopener">TOKYO TORCH Park</a></span><span class="loc-meta">2-6-4 Ōtemachi, Chiyoda-ku, Tokyo &middot; ~330 m</span></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-x-2">アイランド</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-kitchen">まごころkitchenととちゃん</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-asian-tawan">ASIAN TAWAN</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-mr-chicken">Mr.Chicken★鶏飯店</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-5">パパのお店　マイストリート</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-pinos">PINOS</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-x-6">早稲田ゴールデン</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-7">ここぱんキッチン</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-chopi-rich">Chopi Rich〜ちょっぴリッチ〜</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-x-8">バインミー☆サンドイッチ</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-waka-s-kitchen">Waka’s  kitchen</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-burn">Burn.</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-9">ベッラクキッチン</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-10">肉屋のまかない弁当　やまと</a></td></tr><tr><td class="loc-col"><span class="loc-name"><a class="loc-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=35.686639,139.763404" target="_blank" rel="noopener">Otemachi Park Building (Ascott side)</a></span><span class="loc-meta">1-1-1 Ōtemachi, Chiyoda-ku, Tokyo &middot; ~390 m</span></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-x-11">キャプテンハングリー</a></td><td><span class="empty">nothing listed</span></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-good-food-brothers-tokyo-pastamen">good food bROTHERS / TOKYO PASTAMEN</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-fuu">Fuu-</a></td><td><span class="empty">nothing listed</span></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-x-12">とらじゅ</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-13">つつみ</a></td></tr><tr><td class="loc-col"><span class="loc-name"><a class="loc-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=35.68742,139.76185" target="_blank" rel="noopener">Otemachi One</a></span><span class="loc-meta">1-2-1 Ōtemachi, Chiyoda-ku, Tokyo &middot; ~430 m</span></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-x-14">静岡食堂 すだ屋</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-food-truck-shinca">FOOD TRUCK SHINCA</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-lamb-39-z">Lamb&amp;#39;z</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-burn">Burn.</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-x-15">むら川</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-pinos">PINOS</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-smiley-creperie">Smiley Creperie</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-x-16">森緑食堂</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-parlor-zono">PARLOR ZONO</a><br><a class="truck-link" href="javascript:void(0)" data-target="truck-efes-street-kitchen">EFES STREET KITCHEN</a></td></tr><tr><td class="loc-col"><span class="loc-name"><a class="loc-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=35.686607,139.762823" target="_blank" rel="noopener">Hotoria Square</a></span><span class="loc-meta">1-1-1 Ōtemachi (Otemachi Park Building), Chiyoda-ku, Tokyo &middot; ~490 m</span><span class="loc-note">No advance calendar currently published on Mellow for this spot.</span></td><td><span class="empty">nothing listed</span></td><td><span class="empty">nothing listed</span></td><td><span class="empty">nothing listed</span></td><td><span class="empty">nothing listed</span></td><td><span class="empty">nothing listed</span></td></tr><tr><td class="loc-col"><span class="loc-name"><a class="loc-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=35.68959,139.762732" target="_blank" rel="noopener">Otemachi Godo Chosha (Bldg 3)</a></span><span class="loc-meta">1-3-3 Ōtemachi, Chiyoda-ku, Tokyo &middot; ~570 m</span></td><td><span class="empty">nothing listed</span></td><td><span class="empty">nothing listed</span></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-x-17">食堂 大山</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-x-18">双美堂</a></td><td><a class="truck-link" href="javascript:void(0)" data-target="truck-cucco">CUCCO</a></td></tr></tbody></table></div>
 </section>
 
 <section id="trucks">
   <h2>Truck directory</h2>
-  <p class="section-note">Every truck referenced above, with a link out to its own page (menu, and photos where available).</p>
-  <div class="table-scroll">
-  <table class="directory">
-<thead><tr><th></th><th>Truck</th><th>Description</th><th>Popular dish</th><th>Link</th></tr></thead>
-<tbody>
-    <tr id="truck-95base">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">95BASE</span></td>
-      <td>Otemachi weekday regular</td>
-      <td>Menu on-site</td>
-      <td><a class="ext-link" href="https://otemachi-foodgarden.com/list/852" target="_blank" rel="noopener">View truck &#8599;</a></td>
-    </tr>
+  <p class="section-note">Every truck referenced above, with a link out to its own page.</p>
+  <div class="table-scroll"><table class="directory"><thead><tr><th></th><th>Truck</th><th>Description</th><th>Popular dish</th><th>Link</th></tr></thead><tbody>
     <tr id="truck-addict">
       <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_1423.jpg" alt="ADDICT" loading="lazy"></td>
       <td class="name-cell"><span class="tname">ADDICT</span></td>
-      <td>8-hour braised pork specialist</td>
-      <td>Black pork ginger</td>
+      <td>ADDICT完全オリジナル「ポークジンジャー」8時間煮込んだほろほろ焼豚を是非！ ピエニ キッサ 【メニュー：オリジナルタコライス/ダブルチーズタコライス/ワカモレタコライス/濃厚</td>
+      <td>ブラックポークジンジャー</td>
       <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#THU" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-asian-tawan">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/401/339340b6-f076-463a-8bc5-8688a3e87f38.jpeg" alt="ASIAN TAWAN" loading="lazy"></td>
       <td class="name-cell"><span class="tname">ASIAN TAWAN</span></td>
-      <td>Thai truck</td>
-      <td>Gapao (pad kra pao) rice</td>
+      <td>Otemachi-area kitchen car</td>
+      <td>ガパオライス</td>
       <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/YRSwk" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
-    <tr id="truck-besideu">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">グリルキッチンBesideU</span></td>
-      <td>Grill truck</td>
-      <td>Grilled bento (menu on-site)</td>
-      <td><a class="ext-link" href="https://otemachi-foodgarden.com/list/443" target="_blank" rel="noopener">View truck &#8599;</a></td>
+    <tr id="truck-bt-massaru">
+      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_1062.jpg" alt="BT massaru" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">BT massaru</span></td>
+      <td>スパイス＆ハーブの香りを楽しむジャマイカの伝統料理のジャークチキン。栄養たっぷりの豆ごはんとご一緒にどうぞ。</td>
+      <td>ジャークチキン丼</td>
+      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#MON" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-burn">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/4521/9d144fdd-f992-4fb9-89fd-c5071d5a25d4.jpg" alt="Burn." loading="lazy"></td>
       <td class="name-cell"><span class="tname">Burn.</span></td>
-      <td>Jamaican jerk-style truck</td>
-      <td>Jerk chicken rice</td>
+      <td>Otemachi-area kitchen car</td>
+      <td>ジャークチキンライス</td>
       <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/k9SgM1" target="_blank" rel="noopener">View truck &#8599;</a></td>
-    </tr>
-    <tr id="truck-camosica">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">CAMOSICA</span></td>
-      <td>Otemachi weekday regular</td>
-      <td>Menu on-site</td>
-      <td><a class="ext-link" href="https://otemachi-foodgarden.com/list/500" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-chopi-rich">
       <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">Chopi Rich　〜ちょっぴリッチ〜</span></td>
-      <td>Taiwanese truck</td>
-      <td>Lu rou fan (braised pork rice)</td>
+      <td class="name-cell"><span class="tname">Chopi Rich〜ちょっぴリッチ〜</span></td>
+      <td>Otemachi-area kitchen car</td>
+      <td>ルーローハン</td>
       <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/k9SXJ" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-churrascaria-que-bom">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/367/01057adb-c2ac-45ce-ba41-9c778699202b.jpeg" alt="Churrascaria Que bom!" loading="lazy"></td>
       <td class="name-cell"><span class="tname">Churrascaria Que bom!</span></td>
-      <td>Brazilian churrasco truck</td>
-      <td>Mixed lunch box</td>
+      <td>Otemachi-area kitchen car</td>
+      <td>MIXランチボックス</td>
       <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/33S18" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-cucco">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/6453/112228ef-1542-4e3b-8907-8f16116f7f36.jpg" alt="CUCCO" loading="lazy"></td>
       <td class="name-cell"><span class="tname">CUCCO</span></td>
-      <td>Chicken specialist</td>
-      <td>Pulled chicken rice, yogurt sauce</td>
+      <td>Otemachi-area kitchen car</td>
+      <td>プルチキライス　ヨーグルトソース</td>
       <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/q8S8YJ" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-efes-street-kitchen">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/4532/c643c40b-fc13-44be-ae9f-9384f809ffdb.jpg" alt="EFES STREET KITCHEN" loading="lazy"></td>
       <td class="name-cell"><span class="tname">EFES STREET KITCHEN</span></td>
-      <td>Turkish kebab truck</td>
-      <td>Kebab bento</td>
+      <td>Otemachi-area kitchen car</td>
+      <td>ケバブ弁当</td>
       <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/WkSw5" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-es-tokyo">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_703.jpg" alt="es.tokyo" loading="lazy"></td>
       <td class="name-cell"><span class="tname">es.tokyo</span></td>
-      <td>Southeast Asian truck</td>
-      <td>Nasi goreng</td>
-      <td><a class="ext-link" href="https://otemachi-foodgarden.com/list/873" target="_blank" rel="noopener">View truck &#8599;</a></td>
+      <td>es.tokyoではエスニック料理を販売し、「&quot;食&quot;でお客様のライフスタイルを豊かに …」をモットーに日々営業しています！生春巻きやリンゴのコンポートより、お好きな前菜をお選びいた</td>
+      <td>ナシゴレン</td>
+      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#FRI" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-food-truck-shinca">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/4315/40303584-fea4-429f-ae3d-62e1061f1c16.jpg" alt="FOOD TRUCK SHINCA" loading="lazy"></td>
       <td class="name-cell"><span class="tname">FOOD TRUCK SHINCA</span></td>
-      <td>Hawaiian-style truck</td>
-      <td>Mochiko chicken lunch box</td>
+      <td>Otemachi-area kitchen car</td>
+      <td>モチコチキンlunch BOX</td>
       <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/NrSXJZ" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-fuu">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/5041/0d35024a-9bbb-411d-a15c-2086ac158c7f.jpg" alt="Fuu-" loading="lazy"></td>
       <td class="name-cell"><span class="tname">Fuu-</span></td>
-      <td>Chicken-box specialist</td>
-      <td>Basic chicken box</td>
+      <td>Otemachi-area kitchen car</td>
+      <td>ベーシックチキンボックス</td>
       <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/wwSNz" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-good-food-brothers-tokyo-pastamen">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/3430/2ac90712-a9cd-4f2c-aa90-723d84e1be78.jpg" alt="good food bROTHERS / TOKYO PASTAMEN" loading="lazy"></td>
       <td class="name-cell"><span class="tname">good food bROTHERS / TOKYO PASTAMEN</span></td>
-      <td>Pasta / deli truck, rotates 4 menus daily</td>
-      <td>Varies day to day</td>
+      <td>Otemachi-area kitchen car</td>
+      <td>下記メニューより、日替わりで4種類からの提供になります</td>
       <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/6eSDgq" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-gotou-kitchen-car">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/6138/cd12efa4-15a0-4ff9-bdc8-d33441d456fd.jpg" alt="GOTOU kitchen car" loading="lazy"></td>
       <td class="name-cell"><span class="tname">GOTOU kitchen car</span></td>
-      <td>Chinese-style stir-fry truck</td>
-      <td>Tomato &amp; egg stir-fry rice bowl</td>
+      <td>Otemachi-area kitchen car</td>
+      <td>ご飯少なめ300g</td>
       <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/LxSZRD" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
-    <tr id="truck-h-m">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">H&amp;Mカフェ</span></td>
-      <td>Kebab / BBQ fusion truck</td>
-      <td>Kebab × BBQ wild combo bowl</td>
-      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/k9SgzO" target="_blank" rel="noopener">View truck &#8599;</a></td>
+    <tr id="truck-grill-tokyo">
+      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_182.jpg" alt="Grill Tokyo" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">Grill Tokyo</span></td>
+      <td>出来たてローストビーフ、注文のあと目の前でカットします！とってもジューシー。クセになるスパイスのグリルチキンも！お勧めはダブルセットです。 MOCHIKO chicken fact</td>
+      <td>Beef Over Rice</td>
+      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#MON" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-izumi-express">
       <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/15395_1597.jpg" alt="IZUMI EXPRESS" loading="lazy"></td>
       <td class="name-cell"><span class="tname">IZUMI EXPRESS</span></td>
-      <td>Coffee / latte stand</td>
-      <td>Café latte</td>
+      <td>⽇常の暮らしに寄り添う「街のスタンド」。 IZUMI EXPRESS は皆さまの街へ美味しいコーヒーをお届けします。 スマイルスパイス 【メニュー：俺の昭和カレー/トッピング（から</td>
+      <td>コーヒー</td>
       <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#FRI" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
-    <tr id="truck-k-foods-kitchen">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">K FOODS KITCHEN</span></td>
-      <td>Korean-style truck</td>
-      <td>Menu on-site</td>
-      <td><a class="ext-link" href="https://otemachi-foodgarden.com/list/476" target="_blank" rel="noopener">View truck &#8599;</a></td>
-    </tr>
     <tr id="truck-kimmy-s-deli">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">Kimmy&#x27;s Deli</span></td>
-      <td>American deli / BBQ truck</td>
-      <td>Texas BBQ pork</td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/5193/c3b20d20-37f7-4a8a-b448-d96c4136d5db.jpg" alt="Kimmy’s Deli" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">Kimmy’s Deli</span></td>
+      <td>Otemachi-area kitchen car</td>
+      <td>テキサスBBQポーク</td>
       <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/wwSk1" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-kitchen">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/5297/964f1816-fe6e-4bf9-b637-554dd93411c8.jpg" alt="まごころkitchenととちゃん" loading="lazy"></td>
       <td class="name-cell"><span class="tname">まごころkitchenととちゃん</span></td>
-      <td>Mediterranean-style grilled chicken truck</td>
-      <td>Greek-style grilled chicken breast rice</td>
+      <td>ととちゃんオリジナルランチ ◆新定番！ ◆進化系地中海めし！グリルドチキンライス（ギリシャ風鶏むね）！中毒性抜群！スパイス香るグリルドチキン×濃厚ヨーグルトソー</td>
+      <td>進化系地中海めしグリルドチキンライス ギリシャ風（鶏むね）</td>
       <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/9ySbL" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
+    <tr id="truck-kitchen-2">
+      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_1647.jpg" alt="ぐぅとらKitchen" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">ぐぅとらKitchen</span></td>
+      <td>ホテルで修業したシェフが目の前で仕上げることをコンセプトに、こだわりの料理を提供いたします。千葉県のぷりんセスエッグを使用したふわとろオムライスを是非、ご賞味ください。</td>
+      <td>プリンセスオムライス</td>
+      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#WED" target="_blank" rel="noopener">View truck &#8599;</a></td>
+    </tr>
     <tr id="truck-kopi-bali-truck">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/3525/55cf2b52-bcde-44c2-96ce-8dd2cc15a5af.jpg" alt="Kopi Bali Truck" loading="lazy"></td>
       <td class="name-cell"><span class="tname">Kopi Bali Truck</span></td>
-      <td>Indonesian / Balinese truck</td>
-      <td>Spicy nasi goreng</td>
+      <td>Otemachi-area kitchen car</td>
+      <td>旨辛！ナシゴレン</td>
       <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/YRS8v7" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
-    <tr id="truck-koyarim-bar">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">koyarim BAR</span></td>
-      <td>Otemachi weekday regular</td>
-      <td>Menu on-site</td>
-      <td><a class="ext-link" href="https://otemachi-foodgarden.com/list/889" target="_blank" rel="noopener">View truck &#8599;</a></td>
-    </tr>
     <tr id="truck-ks-curry-kitchen">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/5135/b857acf0-4758-4be8-961f-cc0685e447fe.jpg" alt="Ks curry kitchen" loading="lazy"></td>
       <td class="name-cell"><span class="tname">Ks curry kitchen</span></td>
-      <td>Curry &amp; karaage truck</td>
-      <td>Fried chicken bowl</td>
+      <td>Otemachi-area kitchen car</td>
+      <td>唐揚げ丼</td>
       <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/OJSXRm" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-kuokoa">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/4366/cf00c816-7d2c-48b1-ba75-f17f9d22a023.jpg" alt="KUOKOA" loading="lazy"></td>
       <td class="name-cell"><span class="tname">KUOKOA</span></td>
-      <td>Hawaiian-style truck</td>
-      <td>Taco rice</td>
+      <td>Otemachi-area kitchen car</td>
+      <td>タコライス</td>
       <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/JmS6DZ" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
-    <tr id="truck-lamb-z">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">Lamb&#x27;z</span></td>
-      <td>Lamb specialist</td>
-      <td>Extra-rice lamb bowl</td>
+    <tr id="truck-lamb-39-z">
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/5661/e54414a3-5da6-4df0-be06-217878512a6c.jpg" alt="Lamb&amp;#39;z" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">Lamb&amp;#39;z</span></td>
+      <td>「Lamb&#x27;z（ラムズ）」は、ジンギスカンを中心とした美味しいラム料理を提供するキッチンカーです。 看板メニューは、三種類の味が楽しめる生ラム肉のジンギスカン。</td>
+      <td>Lamb&#x27;z ライス大盛り</td>
       <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/dqSoM" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
-    <tr id="truck-manma">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">manma</span></td>
-      <td>Otemachi weekday regular</td>
-      <td>Menu on-site</td>
-      <td><a class="ext-link" href="https://otemachi-foodgarden.com/list/80" target="_blank" rel="noopener">View truck &#8599;</a></td>
+    <tr id="truck-lasagna-italiana">
+      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_545.jpg" alt="Lasagna Italiana" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">Lasagna Italiana</span></td>
+      <td>本場イタリアのシェフが作るラザニアです。副料理長として働いた豪華客船での経験を活かした出来立てのラザニアをどうぞ。 Mr.Chicken 【メニュー：シンガポールチキンライス】シン</td>
+      <td>ラザニア</td>
+      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#MON" target="_blank" rel="noopener">View truck &#8599;</a></td>
+    </tr>
+    <tr id="truck-manis-pedas">
+      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_977.jpg" alt="MANIS PEDAS" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">MANIS PEDAS</span></td>
+      <td>インドネシアの魅力がギュッと詰まったお料理をお届けします。 定番ローカルフード”ナシチャンプル”は野菜やお肉等バラエティに富んだ数種類のおかずをご飯の上に載せて、様々なインドネシア</td>
+      <td>ナシチャンプル</td>
+      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#WED" target="_blank" rel="noopener">View truck &#8599;</a></td>
+    </tr>
+    <tr id="truck-mika">
+      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_887.jpg" alt="MIKAバインミー" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">MIKAバインミー</span></td>
+      <td>ベトナム出身の店主が作る本格的なバインミー。 蓮 REN 【メニュー：中国家庭料理(三色どんぶり・四川麻婆豆腐ごはん等々)】一番人気の「旨・辛 麻婆豆腐」は自家製ラー油、四川山椒、</td>
+      <td>バインミー</td>
+      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#TUE" target="_blank" rel="noopener">View truck &#8599;</a></td>
+    </tr>
+    <tr id="truck-mochiko-chicken-factory">
+      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_303.jpg" alt="MOCHIKO chicken factory" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">MOCHIKO chicken factory</span></td>
+      <td>甘めのタレに漬け込んだチキンにモチコ（もち米粉）をつけてからっと揚げました！！ハワイの家庭の味、お好みのソースで召し上がれ！ Lasagna Italiana 【メニュー： ラザニ</td>
+      <td>モチコチキン</td>
+      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#MON" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-mr-chicken">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">Mr.Chicken★鴏飯店</span></td>
-      <td>Singapore chicken rice specialist</td>
-      <td>Singapore chicken rice (white)</td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/5782/b1734d4e-8224-45f0-9756-07c17975f4d6.jpg" alt="Mr.Chicken★鶏飯店" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">Mr.Chicken★鶏飯店</span></td>
+      <td>Otemachi-area kitchen car</td>
+      <td>シンガポールチキンライス ホワイト</td>
       <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/RoS7" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
-    <tr id="truck-mr-halal">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">Mr.HALAL</span></td>
-      <td>Halal-certified truck</td>
-      <td>Menu on-site</td>
-      <td><a class="ext-link" href="https://otemachi-foodgarden.com/list/153" target="_blank" rel="noopener">View truck &#8599;</a></td>
-    </tr>
-    <tr id="truck-n-s-kitchen">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">N&#x27;s kitchen</span></td>
-      <td>Otemachi weekday regular</td>
-      <td>Menu on-site</td>
-      <td><a class="ext-link" href="https://otemachi-foodgarden.com/list/895" target="_blank" rel="noopener">View truck &#8599;</a></td>
-    </tr>
-    <tr id="truck-oji">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">OJI飯</span></td>
-      <td>Otemachi weekday regular</td>
-      <td>Menu on-site</td>
-      <td><a class="ext-link" href="https://otemachi-foodgarden.com/list/878" target="_blank" rel="noopener">View truck &#8599;</a></td>
+    <tr id="truck-mr-chicken-2">
+      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_565.jpg" alt="Mr.Chicken" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">Mr.Chicken</span></td>
+      <td>シンガポールチキンライスは、地元人に長年愛されるソウルフードで、素朴だけどクセになる味はシンガポールを訪れる日本人にも大人気。当店は、本場有名店での勤務経験を持つ料理人がその味を再</td>
+      <td>シンガポールチキンライス</td>
+      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#MON" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-parlor-zono">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/498/c59b5d7c-7db2-4e09-9ad9-c1ea22878fe7.jpeg" alt="PARLOR ZONO" loading="lazy"></td>
       <td class="name-cell"><span class="tname">PARLOR ZONO</span></td>
-      <td>Western diner-style truck</td>
-      <td>Fried-egg hamburg lunch</td>
+      <td>Otemachi-area kitchen car</td>
+      <td>目玉焼きハンバーグランチ</td>
       <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/XESk5" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-pinos">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/1384/4e9e2ce6-b66d-4f8e-99fe-119b8b93c758.jpg" alt="PINOS" loading="lazy"></td>
       <td class="name-cell"><span class="tname">PINOS</span></td>
-      <td>Chicken &amp; rice truck</td>
-      <td>Yummy chicken &amp; rice</td>
+      <td>「PINOS (ピノス)」は、オーナーのこだわり料理を提供するキッチンカーです。 当店の看板メニューは、オーブンでじっくり丁寧に焼きあげるジューシーなグリルチキ</td>
+      <td>ヤミーチキン&amp;ライス</td>
       <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/9ySpy" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
+    <tr id="truck-qtaro">
+      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/15395_1898.jpg" alt="QTARO" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">QTARO</span></td>
+      <td>ご注文をいただいてから一つひとつ丁寧に包む、できたてのアイスモナカです。栗や胡桃、いちじくなどトッピングが お選びいただけます。 Grill Tokyo 【メニュー：Beef Ov</td>
+      <td>包みたてアイスモナカ</td>
+      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#MON" target="_blank" rel="noopener">View truck &#8599;</a></td>
+    </tr>
+    <tr id="truck-ren">
+      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_271.jpg" alt="蓮 REN" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">蓮 REN</span></td>
+      <td>一番人気の「旨・辛 麻婆豆腐」は自家製ラー油、四川山椒、数種類の唐辛子で「香る」辛味に加え甜麺醤、オイスターソースなどの「旨み」 も加わり癖になる美味しさ！そのほか野菜をふんだんに</td>
+      <td>中国家庭料理(三色どんぶり・四川麻婆豆腐ごはん等々)</td>
+      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#TUE" target="_blank" rel="noopener">View truck &#8599;</a></td>
+    </tr>
+    <tr id="truck-ricordo">
+      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_1439.jpg" alt="東京RICORDO" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">東京RICORDO</span></td>
+      <td>東京RICORDOは組み合わせ自由なイタリア惣菜専門店です。ご飯はバジルなどのハーブ類、ブイヨン、バターを使用し料理と合うように炊き上げています。お家や職場、テラスなどの屋外でレス</td>
+      <td>ローストポーク</td>
+      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#WED" target="_blank" rel="noopener">View truck &#8599;</a></td>
+    </tr>
     <tr id="truck-rink-cafe-104">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/5607/e1ecac95-3588-4130-9a32-f32b8ec97474.jpg" alt="RINK CAFE 104" loading="lazy"></td>
       <td class="name-cell"><span class="tname">RINK CAFE 104</span></td>
-      <td>Japanese bento truck</td>
-      <td>Negi-shio chicken bento, fried egg</td>
+      <td>Otemachi-area kitchen car</td>
+      <td>天だまチキン弁当ネギ塩</td>
       <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/mYSJ59" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-sato-kebab">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/6037/ef13afd6-32d3-4473-b896-2a6d75a38f5c.jpg" alt="SATO KEBAB" loading="lazy"></td>
       <td class="name-cell"><span class="tname">SATO KEBAB</span></td>
-      <td>Kebab truck</td>
-      <td>Kebab bowl</td>
+      <td>Otemachi-area kitchen car</td>
+      <td>ケバブ丼</td>
       <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/A9Sdz8" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-se-or-coppe">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/5728/868715f1-74f1-4bbe-9edd-0d2c090429a9.jpg" alt="Señor Coppe" loading="lazy"></td>
       <td class="name-cell"><span class="tname">Señor Coppe</span></td>
-      <td>Fried-chicken specialist</td>
-      <td>Karaage bowl (5 pieces)</td>
+      <td>Otemachi-area kitchen car</td>
+      <td>唐揚げ丼(5個)</td>
       <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/33SV7Z" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
-    <tr id="truck-sicil">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">SICIL</span></td>
-      <td>Sicilian-style truck</td>
-      <td>Menu on-site</td>
-      <td><a class="ext-link" href="https://otemachi-foodgarden.com/list/482" target="_blank" rel="noopener">View truck &#8599;</a></td>
-    </tr>
     <tr id="truck-smile-tokyo">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/2555/93b19018-e13b-4602-9d19-30ebbcecb4fa.jpg" alt="SMILE TOKYO" loading="lazy"></td>
       <td class="name-cell"><span class="tname">SMILE TOKYO</span></td>
-      <td>Korean-style rice bowls</td>
-      <td>Beef short-rib bibimbap</td>
+      <td>Otemachi-area kitchen car</td>
+      <td>牛バラビビンバ</td>
       <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/g1SkoG" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-smiley-creperie">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/405/9f6f7e86-49cc-473f-a0eb-efd616ce896c.jpg" alt="Smiley Creperie" loading="lazy"></td>
       <td class="name-cell"><span class="tname">Smiley Creperie</span></td>
-      <td>Omurice / crepe truck</td>
-      <td>Chicken tomato-sauce omurice</td>
+      <td>「Smiley Creperie」は、数種類のオリジナルソースをかけたふわとろオムライスと、風味と食感にこだわったスイーツのクレープを提供しています。 人気のソ</td>
+      <td>チキントマトソースオムライス</td>
       <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/BdSPY" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
-    <tr id="truck-sunday-food-service">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">Sunday food service</span></td>
-      <td>Otemachi weekday regular</td>
-      <td>Menu on-site</td>
-      <td><a class="ext-link" href="https://otemachi-foodgarden.com/list/505" target="_blank" rel="noopener">View truck &#8599;</a></td>
+    <tr id="truck-spice">
+      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_173.jpg" alt="+Spice" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">+Spice</span></td>
+      <td>車の中に積んだタンドリー釜の炭火で焼いた熱々モチモチのナンが最高です！！ インド人シェフが作るカレーは定番チキンやキーマ、季節の野菜からお選び頂けます。 ベジタリアンの方にも召し上</td>
+      <td>インドカレー</td>
+      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#TUE" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
-    <tr id="truck-tabeli">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">TABELI（タベリ）</span></td>
-      <td>Otemachi weekday regular</td>
-      <td>Menu on-site</td>
-      <td><a class="ext-link" href="https://otemachi-foodgarden.com/list/120" target="_blank" rel="noopener">View truck &#8599;</a></td>
+    <tr id="truck-tokyo">
+      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_1421.jpg" alt="和TOKYO" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">和TOKYO</span></td>
+      <td>お魚メインのお弁当をお届けします。国産もしくはノルウエー産の脂の乗った鯖をみりん漬けにしてから炙り焼きした鯖弁当。ノルウエーサーモンに限定して甘塩と酢で〆た味わい。​和のお惣菜のつ</td>
+      <td>鯖のみりん漬け弁当</td>
+      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#TUE" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-tokyo-paella">
       <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_246.jpg" alt="Tokyo Paella" loading="lazy"></td>
       <td class="name-cell"><span class="tname">Tokyo Paella</span></td>
-      <td>Spanish paella truck</td>
-      <td>Paella lunch set</td>
+      <td>元スペインレストランの総料理長が車の中で作る、本格大鍋パエリアを是非！</td>
+      <td>PAELLA LUNCH SET</td>
       <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#THU" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-waka-s-kitchen">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">Waka&#x27;s kitchen</span></td>
-      <td>Japanese home-style truck</td>
-      <td>Pork ginger-fried bento</td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/4962/88836606-4e52-44a2-9053-58a7d152f61d.jpg" alt="Waka’s  kitchen" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">Waka’s  kitchen</span></td>
+      <td>Otemachi-area kitchen car</td>
+      <td>豚のしょうが焼き弁当</td>
       <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/Z7SXmJ" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-wellvide">
       <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_1690.jpg" alt="wellvide" loading="lazy"></td>
       <td class="name-cell"><span class="tname">wellvide</span></td>
-      <td>Vegetable fried-rice truck</td>
-      <td>Veggie chāhan</td>
+      <td>TOP お問い合わせ 個人情報保護方針 サイトマップ 会社概要 Facebook Twitter COPYRIGHT © THE SANKEI BUILDING Co., Ltd.</td>
+      <td>ベジチャーハン</td>
       <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#FRI" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-x">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">まま事屋</span></td>
-      <td>Home-style Japanese rice bowls</td>
-      <td>Roast duck (aigamo) donburi</td>
-      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/OJSm" target="_blank" rel="noopener">View truck &#8599;</a></td>
-    </tr>
-    <tr id="truck-x-10">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">食堂 大山</span></td>
-      <td>Curry specialist</td>
-      <td>Ōyama chicken curry</td>
-      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/33SX8O" target="_blank" rel="noopener">View truck &#8599;</a></td>
-    </tr>
-    <tr id="truck-x-11">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">双美堂</span></td>
-      <td>Japanese braised-food truck</td>
-      <td>Slow-braised pork belly (kakuni) bowl</td>
-      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/k9S5Xm" target="_blank" rel="noopener">View truck &#8599;</a></td>
-    </tr>
-    <tr id="truck-x-12">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">ベッラクキッチン</span></td>
-      <td>Bento truck</td>
-      <td>Mixed grill bento</td>
-      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/2ZSBz" target="_blank" rel="noopener">View truck &#8599;</a></td>
-    </tr>
-    <tr id="truck-x-13">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">パパのお店 マイストリート</span></td>
-      <td>Marinated pork steak truck</td>
-      <td>Pork steak, house balsamic sauce</td>
-      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/yJSLgy" target="_blank" rel="noopener">View truck &#8599;</a></td>
-    </tr>
-    <tr id="truck-x-14">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">早稲田ゴールデン</span></td>
-      <td>Rice bowl truck with free toppings</td>
-      <td>Signature bowl w/ wasabi, fried onion, pickles, egg</td>
-      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/q8S31" target="_blank" rel="noopener">View truck &#8599;</a></td>
-    </tr>
-    <tr id="truck-x-15">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">ここぱんキッチン</span></td>
-      <td>Sticky-sauce chicken bowl truck</td>
-      <td>Chicken nebatoro-don</td>
-      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/XESAN" target="_blank" rel="noopener">View truck &#8599;</a></td>
-    </tr>
-    <tr id="truck-x-16">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">バインミー☆サンドイッチ</span></td>
-      <td>Vietnamese bánh mì specialist</td>
-      <td>Saigon ham &amp; pork pâté bánh mì</td>
-      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/mYSlx" target="_blank" rel="noopener">View truck &#8599;</a></td>
-    </tr>
-    <tr id="truck-x-17">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">天神山</span></td>
-      <td>Curry &amp; fried-chicken truck</td>
-      <td>Spice curry / karaage bento</td>
-      <td><a class="ext-link" href="https://otemachi-foodgarden.com/list/545" target="_blank" rel="noopener">View truck &#8599;</a></td>
-    </tr>
-    <tr id="truck-x-18">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">レオ ストリート キッチン</span></td>
-      <td>Kebab specialist</td>
-      <td>Mixed kebab rice</td>
-      <td><a class="ext-link" href="https://otemachi-foodgarden.com/list/490" target="_blank" rel="noopener">View truck &#8599;</a></td>
-    </tr>
-    <tr id="truck-x-19">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">キッチンあがいてぃーら</span></td>
-      <td>Okinawan-inspired fried-cutlet truck</td>
-      <td>Chicken katsu bento</td>
-      <td><a class="ext-link" href="https://otemachi-foodgarden.com/list/734" target="_blank" rel="noopener">View truck &#8599;</a></td>
-    </tr>
-    <tr id="truck-x-2">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/5063/62c12564-5cc4-4731-bdc9-53f92849ed25.jpg" alt="サンドリヨン" loading="lazy"></td>
       <td class="name-cell"><span class="tname">サンドリヨン</span></td>
-      <td>Daily-changing bento truck</td>
-      <td>Fried-egg-topped daily bento</td>
+      <td>Otemachi-area kitchen car</td>
+      <td>目玉焼き付き!日替わり弁当</td>
       <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/MwSbeY" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
+    <tr id="truck-x-10">
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/5603/deb61f02-878c-45c4-86a3-7b9684532097.jpg" alt="肉屋のまかない弁当　やまと" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">肉屋のまかない弁当　やまと</span></td>
+      <td>Otemachi-area kitchen car</td>
+      <td>牛タンネギ塩ランチ</td>
+      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/4DSYD" target="_blank" rel="noopener">View truck &#8599;</a></td>
+    </tr>
+    <tr id="truck-x-11">
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/6140/a854a0d4-e90e-4404-a779-1643eefd9790.jpg" alt="キャプテンハングリー" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">キャプテンハングリー</span></td>
+      <td>Otemachi-area kitchen car</td>
+      <td>デミグラスハンバーグボウル</td>
+      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/wwSYgP" target="_blank" rel="noopener">View truck &#8599;</a></td>
+    </tr>
+    <tr id="truck-x-12">
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/1075/3a19fda3-9a31-40a0-a787-7945f4bdabb8.jpg" alt="とらじゅ" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">とらじゅ</span></td>
+      <td>Otemachi-area kitchen car</td>
+      <td>あなごめし　小盛</td>
+      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/q8SXd" target="_blank" rel="noopener">View truck &#8599;</a></td>
+    </tr>
+    <tr id="truck-x-13">
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/3536/9a25d646-d864-4cac-b599-88ab7327eb64.jpg" alt="つつみ" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">つつみ</span></td>
+      <td>Otemachi-area kitchen car</td>
+      <td>ガパオライス</td>
+      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/evSJDz" target="_blank" rel="noopener">View truck &#8599;</a></td>
+    </tr>
+    <tr id="truck-x-14">
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/1249/d31b747c-e58c-4c6d-aaa4-09b0626a7b1e.jpg" alt="静岡食堂 すだ屋" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">静岡食堂 すだ屋</span></td>
+      <td>「静岡食堂 すだ屋」は、新鮮なしらすや魚料理を中心に提供するキッチンカーです。 しらす＆カジキ丼やしらす&amp;トロサーモン丼、しらす&amp;塩さば丼など、しらすに加えてバ</td>
+      <td>しらす＆カジキ丼（玄米・白米）</td>
+      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/zVS1G" target="_blank" rel="noopener">View truck &#8599;</a></td>
+    </tr>
+    <tr id="truck-x-15">
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/6412/891811b2-5442-40c1-8b41-049a331c8312.jpg" alt="むら川" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">むら川</span></td>
+      <td>Otemachi-area kitchen car</td>
+      <td>サーモンのレアカツ海苔弁</td>
+      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/g1Sdq" target="_blank" rel="noopener">View truck &#8599;</a></td>
+    </tr>
+    <tr id="truck-x-16">
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/2411/3eed7766-65c8-465a-be2d-75f1768f10d1.jpg" alt="森緑食堂" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">森緑食堂</span></td>
+      <td>「森緑食堂」は、店主がこだわり抜いた美味しいタコライスを提供するキッチンカーです。 希少な熊谷産キヌヒカリの得Aランクのお米を使用しています。オリジナルタコライ</td>
+      <td>タコライス</td>
+      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/zVS1vM" target="_blank" rel="noopener">View truck &#8599;</a></td>
+    </tr>
+    <tr id="truck-x-17">
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/2785/21beefaf-af0e-427d-a130-c8c584793849.jpg" alt="食堂 大山" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">食堂 大山</span></td>
+      <td>食堂大山は自慢のカレーを提供するキッチンカーです。鶏ガラスープとじっくり炒めた香味野菜の旨み、果物の自然な甘み、たっぷりスパイスの香り、これらが特徴の当店のカレ</td>
+      <td>大山のチキンカレー</td>
+      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/33SX8O" target="_blank" rel="noopener">View truck &#8599;</a></td>
+    </tr>
+    <tr id="truck-x-18">
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/3850/e03da06b-943d-4ba6-84de-cb5f6c307781.jpg" alt="双美堂" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">双美堂</span></td>
+      <td>Otemachi-area kitchen car</td>
+      <td>炙り豚の角煮丼</td>
+      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/k9S5Xm" target="_blank" rel="noopener">View truck &#8599;</a></td>
+    </tr>
+    <tr id="truck-x-19">
+      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_1899.jpg" alt="スマイルスパイス" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">スマイルスパイス</span></td>
+      <td>牛すじをじっくり煮込んでトロトロに。昔懐かしい昭和のカレー。 es.tokyo 【メニュー：ナシゴレン/ガパオライス/アジアンミートライス】es.tokyoではエスニック料理を販売</td>
+      <td>俺の昭和カレー</td>
+      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#FRI" target="_blank" rel="noopener">View truck &#8599;</a></td>
+    </tr>
+    <tr id="truck-x-2">
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/4263/c25ee50b-bf59-45ab-940c-5e5da3d97eb7.jpg" alt="アイランド" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">アイランド</span></td>
+      <td>Otemachi-area kitchen car</td>
+      <td>ローストポークライス</td>
+      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/G8SGEr" target="_blank" rel="noopener">View truck &#8599;</a></td>
+    </tr>
     <tr id="truck-x-20">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">東京肉骨茶</span></td>
-      <td>Singaporean / Malaysian herbal pork-rib soup</td>
-      <td>Bak kut teh</td>
-      <td><a class="ext-link" href="https://otemachi-foodgarden.com/list/866" target="_blank" rel="noopener">View truck &#8599;</a></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_797.jpg" alt="ビストロカルロス" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">ビストロカルロス</span></td>
+      <td>カルロスのステーキライスは自家製サワークリームとトマトたっぷりサルサメヒカーナが決め手です。 カーニャパッソ 【メニュー：ボリューム満点！豚の角煮と野菜のスープカレー/たっぷり野菜</td>
+      <td>カルロス☆ビーフステーキライス</td>
+      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#FRI" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-x-21">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">まーちゃんほっとさん</span></td>
-      <td>Otemachi weekday regular</td>
-      <td>Menu on-site</td>
-      <td><a class="ext-link" href="https://otemachi-foodgarden.com/list/883" target="_blank" rel="noopener">View truck &#8599;</a></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_919.jpg" alt="カーニャパッソ" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">カーニャパッソ</span></td>
+      <td>32種類のスパイスを贅沢に使い、手挽きにこだわることで、スパイス本来の効能と旨みを最大限に引き出しました。自家製ブイヨンとトマトソースが織りなす深いコク。オーダーを受けてから作る「</td>
+      <td>ボリューム満点！豚の角煮と野菜のスープカレー</td>
+      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#FRI" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-x-22">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">エピス・デ・ボヌール</span></td>
-      <td>Spice-forward truck</td>
-      <td>Menu on-site</td>
-      <td><a class="ext-link" href="https://otemachi-foodgarden.com/list/591" target="_blank" rel="noopener">View truck &#8599;</a></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_1140.jpg" alt="てふてふ" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">てふてふ</span></td>
+      <td>今日、ここでしか食べられないオリジナルタイ料理。トムヤムと青山椒の奇跡のマリアージュ。 wellvide 【メニュー：ベジチャーハン /咖喱(カリー)麻婆ベジチャーン/チキンベジチ</td>
+      <td>てふてふご飯</td>
+      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#FRI" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-x-23">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">吉野家</span></td>
-      <td>National beef-bowl chain</td>
-      <td>Gyūdon (beef bowl)</td>
-      <td><a class="ext-link" href="https://otemachi-foodgarden.com/list/127" target="_blank" rel="noopener">View truck &#8599;</a></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_785.jpg" alt="パパガヤデリ" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">パパガヤデリ</span></td>
+      <td>中近東料理。スパイスを効かせた本場ファラフェル＆シュニッツェル(チキンカツ)をご提供します。 BT massaru 【メニュー：ジャークチキン丼/ピり辛ソーセージ盛り合わせ/ビーフ</td>
+      <td>シュニッツエル＆ファラフェル</td>
+      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#MON" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-x-24">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">アップサイズ</span></td>
-      <td>Otemachi weekday regular</td>
-      <td>Menu on-site</td>
-      <td><a class="ext-link" href="https://otemachi-foodgarden.com/list/755" target="_blank" rel="noopener">View truck &#8599;</a></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_1109.jpg" alt="台湾佐記麺線" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">台湾佐記麺線</span></td>
+      <td>台湾のソウルフード「麺線」の移動販売車です。カツオだしが香るトロミがあるスープと極細の台湾麺が特徴の、台湾式そうめんです。 MIKAバインミー 【メニュー：バインミー】 ベトナム出</td>
+      <td>麺線</td>
+      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#TUE" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-x-25">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">長崎屋</span></td>
-      <td>Nagasaki regional dishes</td>
-      <td>Menu on-site</td>
-      <td><a class="ext-link" href="https://otemachi-foodgarden.com/list/752" target="_blank" rel="noopener">View truck &#8599;</a></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_12.jpg" alt="ボナペティ" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">ボナペティ</span></td>
+      <td>グルグル目の前で回るロティサリーマシンで作る、ローストチキン。焼きたてです！</td>
+      <td>ロティサリーチキン</td>
+      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#TUE" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-x-26">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">ジュリーズスパイス</span></td>
-      <td>Spice curry truck</td>
-      <td>Menu on-site</td>
-      <td><a class="ext-link" href="https://otemachi-foodgarden.com/list/71" target="_blank" rel="noopener">View truck &#8599;</a></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_47.jpg" alt="和食しの" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">和食しの</span></td>
+      <td>頑固おやじが作る旬菜ヘルシー和食のお弁当をどうぞ。 ポチャ 【メニュー：プルコギ/タッカルビ/ユッケジャンスープ/ブタカルビ】先代から45年間、韓国の本場の味を守り続けています。 </td>
+      <td>選べる和食旬菜弁当</td>
+      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#WED" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-x-27">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">ミラクルキッチン</span></td>
-      <td>Otemachi weekday regular</td>
-      <td>Menu on-site</td>
-      <td><a class="ext-link" href="https://otemachi-foodgarden.com/list/43" target="_blank" rel="noopener">View truck &#8599;</a></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_704.jpg" alt="ポチャ" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">ポチャ</span></td>
+      <td>先代から45年間、韓国の本場の味を守り続けています。 店主自慢のプルコギ、ダッカルビ、スンドゥブチゲなどお試し下さい。 MANIS PEDAS 【メニュー：ナシチャンプル/ ナシア</td>
+      <td>プルコギ</td>
+      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#WED" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-x-28">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">ごっさむ</span></td>
-      <td>Otemachi weekday regular</td>
-      <td>Menu on-site</td>
-      <td><a class="ext-link" href="https://otemachi-foodgarden.com/list/516" target="_blank" rel="noopener">View truck &#8599;</a></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_1407.jpg" alt="ミラーン" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">ミラーン</span></td>
+      <td>手作り・ヘルシー志向の本格的南インドカレー。マサラチキン、イカカレー、スパイシーポーク、ココナッツチキンなど週替わりでお届けします。ベジタリアンメニューのご用意も。 東京RICOR</td>
+      <td>南インドカレー各種</td>
+      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#WED" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-x-29">
       <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_1389.jpg" alt="ピエニ キッサ" loading="lazy"></td>
       <td class="name-cell"><span class="tname">ピエニ キッサ</span></td>
-      <td>Taco rice specialist</td>
-      <td>Original taco rice</td>
+      <td>国産豚を使用した甘辛タコミートに、レタス、フライドオニオン、炙りチーズなどをトッピングした当店オリジナルのタコライスを提供します。 米結 【メニュー：新潟郷土料理鮭の焼き漬け丼/越</td>
+      <td>オリジナルタコライス</td>
       <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#THU" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-x-3">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">アイランド</span></td>
-      <td>Hawaiian / roast-style truck</td>
-      <td>Roast pork rice</td>
-      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/G8SGEr" target="_blank" rel="noopener">View truck &#8599;</a></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/1319/8f3cdd82-6210-4fea-96f7-8603d245ecfd.jpeg" alt="西京屋　周" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">西京屋　周</span></td>
+      <td>Otemachi-area kitchen car</td>
+      <td>銀鱈弁当～極～</td>
+      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/yJSmx" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-x-30">
       <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_1141.jpg" alt="米結" loading="lazy"></td>
       <td class="name-cell"><span class="tname">米結</span></td>
-      <td>Niigata regional rice bowls</td>
-      <td>Salmon yaki-zuke donburi</td>
+      <td>新潟の食材や調味料をつかった新潟満載の丼です。 パラダイス 【メニュー：ロコモコ・グレイビーソース/ロコモコ・デミグラスソース/ロコモコ・イタリアンソース/BBQチキン/ロコモコ＆</td>
+      <td>新潟郷土料理鮭の焼き漬け丼</td>
       <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#THU" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-x-31">
       <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_1090.jpg" alt="パラダイス" loading="lazy"></td>
       <td class="name-cell"><span class="tname">パラダイス</span></td>
-      <td>Hawaiian loco moco truck</td>
-      <td>Loco moco, gravy sauce</td>
+      <td>ボリュームたっぷりのハワイアンフードをお届け致します。 ぞうさん食堂 【メニュー：トムヤムごはん/ベトナムごはん/カオマンガイ/よだれ鶏ごはん】「身近なアジア」をコンセプトにエスニ</td>
+      <td>ロコモコ・グレイビーソース</td>
       <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#THU" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-x-32">
       <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_794.jpg" alt="ぞうさん食堂" loading="lazy"></td>
       <td class="name-cell"><span class="tname">ぞうさん食堂</span></td>
-      <td>Pan-Asian rice bowls</td>
-      <td>Tom yum rice</td>
+      <td>「身近なアジア」をコンセプトにエスニック料理が苦手な人にもお楽しみいただけるようPOPでカジュアルな店舗&amp;メニュー作りに力を入れております。 Tokyo Paella 【メニュー：</td>
+      <td>トムヤムごはん</td>
       <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#THU" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
-    <tr id="truck-x-33">
-      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_1899.jpg" alt="スマイルスパイス" loading="lazy"></td>
-      <td class="name-cell"><span class="tname">スマイルスパイス</span></td>
-      <td>Shōwa-retro curry truck</td>
-      <td>Beef-tendon curry</td>
-      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#FRI" target="_blank" rel="noopener">View truck &#8599;</a></td>
-    </tr>
-    <tr id="truck-x-34">
-      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_797.jpg" alt="ビストロカルロス" loading="lazy"></td>
-      <td class="name-cell"><span class="tname">ビストロカルロス</span></td>
-      <td>Steak-rice specialist</td>
-      <td>Carlos beef steak rice</td>
-      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#FRI" target="_blank" rel="noopener">View truck &#8599;</a></td>
-    </tr>
-    <tr id="truck-x-35">
-      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_919.jpg" alt="カーニャパッソ" loading="lazy"></td>
-      <td class="name-cell"><span class="tname">カーニャパッソ</span></td>
-      <td>Soup-curry truck</td>
-      <td>Braised pork belly &amp; vegetable soup curry</td>
-      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#FRI" target="_blank" rel="noopener">View truck &#8599;</a></td>
-    </tr>
-    <tr id="truck-x-36">
-      <td class="photo-cell"><img class="truck-photo" src="https://www.w-tokyodo.com/assets/common/images/car_photo_thum/3_1140.jpg" alt="てふてふ" loading="lazy"></td>
-      <td class="name-cell"><span class="tname">てふてふ</span></td>
-      <td>Thai truck</td>
-      <td>Khao man gai</td>
-      <td><a class="ext-link" href="https://www.metrosquare.jp/foodtruck/index#FRI" target="_blank" rel="noopener">View truck &#8599;</a></td>
-    </tr>
     <tr id="truck-x-4">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">西京屋 周</span></td>
-      <td>Premium bento specialist</td>
-      <td>Black cod (gindara) bento</td>
-      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/yJSmx" target="_blank" rel="noopener">View truck &#8599;</a></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/35/c7882019-284e-4879-97ab-4923b4d7caef.jpg" alt="まま事屋" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">まま事屋</span></td>
+      <td>「まま事屋」は、埼玉県幸手市の名産である高級国産合鴨を使った料理を移動販売するキッチンカーです。惣菜・弁当グランプリ2015で優秀賞を受賞したこともある、まま事</td>
+      <td>ローストあいがも丼</td>
+      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/OJSm" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-x-5">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">キャプテンハングリー</span></td>
-      <td>Western hamburg / rice-bowl truck</td>
-      <td>Demi-glace hamburg bowl</td>
-      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/wwSYgP" target="_blank" rel="noopener">View truck &#8599;</a></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/3392/3146e20c-860e-4144-a1b3-bf0900c7a29d.jpg" alt="パパのお店　マイストリート" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">パパのお店　マイストリート</span></td>
+      <td>Otemachi-area kitchen car</td>
+      <td>漬け込み柔らか【ポークステーキ】自家製バルサミコソース</td>
+      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/yJSLgy" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-x-6">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">肉屋のまかない弁当 やまと</span></td>
-      <td>Butcher-shop staff-meal-style bento truck</td>
-      <td>Beef tongue negi-shio lunch</td>
-      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/4DSYD" target="_blank" rel="noopener">View truck &#8599;</a></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/796/97cde9b7-0032-4c5c-ad4f-2e06ce1f228f.jpg" alt="早稲田ゴールデン" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">早稲田ゴールデン</span></td>
+      <td>Otemachi-area kitchen car</td>
+      <td>刻みワサビ、フライドオニオン、お新香、たまご（無料）</td>
+      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/q8S31" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-x-7">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">むら川</span></td>
-      <td>Japanese bento truck</td>
-      <td>Salmon rare-katsu nori bento</td>
-      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/g1Sdq" target="_blank" rel="noopener">View truck &#8599;</a></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/1770/e6456300-4f6e-4d4e-ab28-2e524b020902.jpg" alt="ここぱんキッチン" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">ここぱんキッチン</span></td>
+      <td>Otemachi-area kitchen car</td>
+      <td>チキンねばとろ丼</td>
+      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/XESAN" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-x-8">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">森緑食堂</span></td>
-      <td>Rice-bowl truck</td>
-      <td>Taco rice</td>
-      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/zVS1vM" target="_blank" rel="noopener">View truck &#8599;</a></td>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/1041/3f4fa0ac-b4cd-4c85-833c-1825eddc0df0.jpg" alt="バインミー☆サンドイッチ" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">バインミー☆サンドイッチ</span></td>
+      <td>Otemachi-area kitchen car</td>
+      <td>サイゴンハム&amp;豚パテのバインミー</td>
+      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/mYSlx" target="_blank" rel="noopener">View truck &#8599;</a></td>
     </tr>
     <tr id="truck-x-9">
-      <td class="photo-cell"><div class="truck-photo placeholder" aria-hidden="true"></div></td>
-      <td class="name-cell"><span class="tname">静岡食堂 すだ屋</span></td>
-      <td>Seafood-forward bento truck</td>
-      <td>Shirasu &amp; kajiki (marlin) bowl</td>
-      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/zVS1G" target="_blank" rel="noopener">View truck &#8599;</a></td>
-    </tr></tbody>
-</table>
-  </div>
+      <td class="photo-cell"><img class="truck-photo" src="https://img.shopstop.jp/uploads/truck/main_photo/4673/77fe4aa1-d633-43a8-b30b-cd82d3d3a671.jpg" alt="ベッラクキッチン" loading="lazy"></td>
+      <td class="name-cell"><span class="tname">ベッラクキッチン</span></td>
+      <td>Otemachi-area kitchen car</td>
+      <td>チキンケバブサンド</td>
+      <td><a class="ext-link" href="https://schedule.mellow.jp/ss_web/shops/2ZSBz" target="_blank" rel="noopener">View truck &#8599;</a></td>
+    </tr></tbody></table></div>
 </section>
 
 <footer>
-  Built from Mellow SHOP STOP (schedule.mellow.jp), Tokyo Sankei Building Shops &amp; Restaurants (metrosquare.jp), and Otemachi Kawabata Food Garden (otemachi-foodgarden.com). Kawabata Food Garden's row shows its published “usual” weekday lineup rather than date-confirmed vendors.
+  Auto-rebuilt daily from Mellow SHOP STOP (schedule.mellow.jp), Tokyo Sankei Building Shops &amp; Restaurants (metrosquare.jp), and Otemachi Kawabata Food Garden (otemachi-foodgarden.com). Kawabata Food Garden's row shows its published “usual” weekday lineup rather than date-confirmed vendors.
 </footer>
-
 
 <script>
   document.querySelectorAll('a.truck-link').forEach(function(a){
@@ -766,14 +619,10 @@
       if (history.replaceState) { history.replaceState(null, '', '#' + id); }
     });
   });
-  // support arriving with a hash already in the URL (e.g. shared link)
   window.addEventListener('DOMContentLoaded', function(){
     if (location.hash) {
       var el = document.getElementById(location.hash.slice(1));
-      if (el) {
-        el.classList.add('js-target');
-        setTimeout(function(){ el.scrollIntoView({behavior:'smooth', block:'center'}); }, 50);
-      }
+      if (el) { el.classList.add('js-target'); setTimeout(function(){ el.scrollIntoView({behavior:'smooth', block:'center'}); }, 50); }
     }
   });
 </script>
