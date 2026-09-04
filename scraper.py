@@ -529,8 +529,8 @@ def render(date_labels, locations, trucks):
   .schedule td {{ padding: 12px; border-bottom: 1px solid var(--line); vertical-align: top; }}
   .loc-col {{ width: 240px; min-width: 200px; }}
   .loc-name {{ display:block; font-weight: 700; font-size: 14.5px; margin-bottom: 3px; }}
-  a.loc-map-link { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); }
-  a.loc-map-link:hover { border-bottom-color: var(--rust); color: var(--rust); }
+  a.loc-map-link {{ color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); }}
+  a.loc-map-link:hover {{ border-bottom-color: var(--rust); color: var(--rust); }}
   .loc-meta {{ display:block; color: var(--muted); font-size: 12px; margin-bottom: 4px; }}
   .loc-note {{ display:block; color: var(--olive); font-size: 11.5px; font-style: italic; }}
   a.truck-link {{ color: var(--rust); text-decoration: none; border-bottom: 1px dotted var(--rust); }}
