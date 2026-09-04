@@ -163,21 +163,17 @@ SHOP_CACHE = {}
 
 
 def parse_mellow_shop(shop_url):
-    """Fetch a shop's own page for canonical name / photo / bio.
+    """Fetch a shop's own page for canonical name / photo.
 
-    The bio (owner-written blurb) reliably sits on the single text line
-    immediately before the fixed "add to favorites" CTA
-    ("SHOP STOPアプリでお気に入りに追加する"), regardless of what's above it
-    (an "SNS・HP" block with icon links, or "登録がありません" when the truck
-    has no social links registered). Anchoring on that fixed CTA instead of
-    on "登録がありません" is what makes this reliable for trucks with and
-    without social links alike -- the earlier version only anchored on the
-    latter, so any truck *with* a registered SNS link silently got no bio.
+    (No longer scrapes the free-text bio -- see describe_from_dish below.
+    Cuisine descriptions are derived from the dish name instead, which is
+    both more reliable and closer to how the original site's descriptions
+    were actually written.)
     """
     if shop_url in SHOP_CACHE:
         return SHOP_CACHE[shop_url]
     htmltxt = fetch(shop_url)
-    info = {"name": None, "img": None, "bio": None}
+    info = {"name": None, "img": None}
     if htmltxt:
         soup = BeautifulSoup(htmltxt, "html.parser")
         og_title = soup.find("meta", attrs={"property": "og:title"})
@@ -186,20 +182,6 @@ def parse_mellow_shop(shop_url):
         og_img = soup.find("meta", attrs={"property": "og:image"})
         if og_img and og_img.get("content"):
             info["img"] = og_img["content"]
-
-        lines = [ln for ln in soup.get_text("\n", strip=True).split("\n") if ln.strip()]
-        CTA = "SHOP STOP\u30a2\u30d7\u30ea\u3067\u304a\u6c17\u306b\u5165\u308a\u306b\u8ffd\u52a0\u3059\u308b"
-        for i, ln in enumerate(lines):
-            if CTA in ln and i > 0:
-                candidate = lines[i - 1].strip()
-                # sanity checks: a real bio is reasonably long prose, not a
-                # landmark line, a lone SNS icon caption, or a menu/price row
-                if (candidate
-                        and candidate != "\u767b\u9332\u304c\u3042\u308a\u307e\u305b\u3093"
-                        and len(candidate) >= 15
-                        and "\u5186" not in candidate[-3:]):
-                    info["bio"] = candidate[:200]
-                break
     SHOP_CACHE[shop_url] = info
     return info
 
@@ -214,6 +196,76 @@ def dish_from_raw(raw_text, canonical_name):
         parts = re.split(r"\s{2,}", s, maxsplit=1)
         s = parts[1].strip() if len(parts) > 1 else s
     return s or "Menu on-site"
+
+
+# ---------------------------------------------------------------------------
+# Cuisine classifier -- turns a dish name into the kind of short, meaningful
+# tag ("Kebab truck", "Korean-style rice bowls", "Taiwanese truck"...) that
+# the original hand-built site had. Those tags were never scraped from
+# anywhere -- they came from reading each dish name and categorizing the
+# cuisine -- so we encode that same judgment as ordered keyword rules
+# instead of depending on a fragile third-party bio field. Checked in order,
+# most specific first, so e.g. "\u30b9\u30fc\u30d7\u30ab\u30ec\u30fc" (soup curry) matches
+# before the generic "\u30ab\u30ec\u30fc" (curry) rule below it.
+# ---------------------------------------------------------------------------
+
+CUISINE_RULES = [
+    (["\u30b9\u30fc\u30d7\u30ab\u30ec\u30fc", "soup curry"], "Soup-curry truck"),
+    (["\u30ab\u30ec\u30fc&\u5510\u63da\u3052", "\u30ab\u30ec\u30fc\u3068\u5510\u63da\u3052", "curry & karaage", "curry and fried chicken"], "Curry & fried-chicken truck"),
+    (["\u30ab\u30ec\u30fc", "curry"], "Curry specialist"),
+    (["\u5510\u63da\u3052", "\u304b\u3089\u63da\u3052", "karaage", "fried chicken"], "Fried-chicken specialist"),
+    (["\u30b1\u30d0\u30d6", "kebab", "\u30c9\u30ca\u30fc", "doner"], "Kebab truck"),
+    (["\u30d3\u30d3\u30f3\u30d0", "bibimbap", "\u30d7\u30eb\u30b3\u30ae", "\u30e4\u30f3\u30cb\u30e7\u30e0", "\u30bf\u30c3\u30ab\u30eb\u30d3", "korean"], "Korean-style rice bowls"),
+    (["\u30bf\u30b3\u30e9\u30a4\u30b9", "taco rice"], "Taco rice specialist"),
+    (["\u30bf\u30b3\u30b9", "\u30ca\u30c1\u30e7\u30b9", "taco", "nacho", "burrito"], "Mexican-style truck"),
+    (["\u30ca\u30b7\u30b4\u30ec\u30f3", "nasi goreng", "\u30a4\u30f3\u30c9\u30cd\u30b7\u30a2", "indonesia", "\u30d0\u30ea", "bali"], "Indonesian truck"),
+    (["\u30d1\u30a8\u30ea\u30a2", "paella", "\u30b9\u30da\u30a4\u30f3", "spanish"], "Spanish paella truck"),
+    (["\u30ac\u30d1\u30aa", "gapao", "\u30ab\u30aa\u30de\u30f3\u30ac\u30a4", "khao man gai", "\u30d1\u30c3\u30bf\u30a4", "pad thai", "\u30c8\u30e0\u30e4\u30e0", "tom yum", "thai"], "Thai truck"),
+    (["\u30d0\u30a4\u30f3\u30df\u30fc", "banh mi", "b\u00e1nh m\u00ec", "\u30d5\u30a9\u30fc", "pho", "vietnam"], "Vietnamese truck"),
+    (["\u30b7\u30f3\u30ac\u30dd\u30fc\u30eb\u30c1\u30ad\u30f3\u30e9\u30a4\u30b9", "singapore chicken rice"], "Singapore chicken rice specialist"),
+    (["\u9b6f\u8089\u98ef", "\u30eb\u30fc\u30ed\u30fc\u30cf\u30f3", "lu rou fan", "taiwan"], "Taiwanese truck"),
+    (["\u8089\u9aa8\u8336", "bak kut teh"], "Singaporean/Malaysian herbal pork-rib soup"),
+    (["\u30ed\u30b3\u30e2\u30b3", "loco moco"], "Hawaiian loco moco truck"),
+    (["\u30e2\u30c1\u30b3", "mochiko", "\u30cf\u30ef\u30a4", "hawaii"], "Hawaiian-style truck"),
+    (["\u30b7\u30e5\u30e9\u30b9\u30b3", "churrasco", "brazil"], "Brazilian churrasco truck"),
+    (["\u89d2\u716e", "kakuni", "\u89d2\u713c", "\u7167\u308a\u713c\u304d\u8c5a"], "Japanese braised-pork truck"),
+    (["\u3057\u3089\u3059", "\u6d77\u9bae", "\u9bae\u9b5a", "seafood", "shirasu"], "Seafood-forward truck"),
+    (["\u30d0\u30fc\u30d9\u30ad\u30e5\u30fc", "bbq", "\u30d0\u30fc\u30d9\u30ad\u30e5", "\u30c6\u30ad\u30b5\u30b9", "texas"], "American BBQ truck"),
+    (["\u30cf\u30f3\u30d0\u30fc\u30ac\u30fc", "burger"], "Burger truck"),
+    (["\u30cf\u30f3\u30d0\u30fc\u30b0", "hamburg"], "Western hamburg / rice-bowl truck"),
+    (["\u30aa\u30e0\u30e9\u30a4\u30b9", "omurice"], "Omurice truck"),
+    (["\u30d1\u30b9\u30bf", "pasta"], "Pasta truck"),
+    (["\u30d4\u30b6", "pizza"], "Pizza truck"),
+    (["\u30b3\u30fc\u30d2\u30fc", "\u30e9\u30c6", "coffee", "latte", "espresso"], "Coffee / latte stand"),
+    (["\u30af\u30ec\u30fc\u30d7", "crepe"], "Crepe truck"),
+    (["\u725b\u4e3c", "gyudon", "beef bowl"], "Beef-bowl specialist"),
+    (["\u30b0\u30ea\u30eb\u30c1\u30ad\u30f3", "grilled chicken", "greek"], "Grilled-chicken truck"),
+    (["\u30b9\u30c6\u30fc\u30ad", "steak"], "Steak-rice specialist"),
+    (["\u30e9\u30e0", "lamb"], "Lamb specialist"),
+    (["\u30b8\u30e3\u30fc\u30af", "jerk", "jamaica"], "Jamaican jerk-style truck"),
+    (["\u30ed\u30fc\u30b9\u30c8", "roast"], "Roast-style truck"),
+    (["\u30ab\u30c4", "katsu", "cutlet"], "Fried-cutlet (katsu) truck"),
+    (["\u30c1\u30e3\u30fc\u30cf\u30f3", "\u7092\u3081\u98ef", "\u30d5\u30e9\u30a4\u30c9\u30e9\u30a4\u30b9", "fried rice", "chahan"], "Chinese-style stir-fry truck"),
+    (["\u30d1\u30f3\u30b1\u30fc\u30ad", "pancake"], "Pancake truck"),
+    (["\u30b5\u30f3\u30c9", "deli", "sandwich"], "Sandwich / deli truck"),
+    (["\u5f01\u5f53", "bento", "\u4e2f", "donburi", "\u4e2f\u7269"], "Japanese bento truck"),
+]
+
+
+def describe_from_dish(dish, fallback_source="Kitchen car"):
+    """Best-effort cuisine tag from the dish name, mirroring how the
+    original hand-built directory's descriptions were actually written.
+    Falls back to naming the dish itself rather than a content-free line,
+    so every truck still gets something meaningful even on zero keyword hits.
+    """
+    if not dish or dish == "Menu on-site":
+        return f"{fallback_source} kitchen car."
+    low = dish.lower()
+    for keywords, label in CUISINE_RULES:
+        for kw in keywords:
+            if kw.lower() in low:
+                return label
+    return f"Serves {dish}."
 
 
 # ---------------------------------------------------------------------------
@@ -354,9 +406,6 @@ def enrich_kawabata_truck(name, info):
     h1 = soup.find("h1")
     if h1:
         info["name"] = h1.get_text(strip=True) or name
-    # Description is intentionally a fixed line, not scraped free text --
-    # see the note on parse_mellow_shop for why.
-    info["desc"] = "Otemachi Kawabata Food Garden kitchen car."
     prices = soup.find_all(string=re.compile("\u5186\uff08\u7a0e\u8fbc\uff09"))
     dish = None
     if prices:
@@ -369,6 +418,7 @@ def enrich_kawabata_truck(name, info):
                 dish = node.strip()
                 break
     info["dish"] = dish or "Menu on-site"
+    info["desc"] = describe_from_dish(info["dish"], "Otemachi Kawabata Food Garden")
     og_img = soup.find("meta", attrs={"property": "og:image"})
     info["img"] = og_img["content"] if og_img and og_img.get("content") else None
     return info
@@ -417,7 +467,7 @@ def build():
                     info = parse_mellow_shop(e["shop_url"])
                     name = info["name"] or e["raw"][:24]
                     dish = dish_from_raw(e["raw"], info["name"])
-                    register_truck(name, info.get("bio") or "Mellow SHOP STOP kitchen car.",
+                    register_truck(name, describe_from_dish(dish, "Mellow SHOP STOP"),
                                     dish, e["shop_url"], info.get("img"))
                     sched[label].append(name)
         note = None
@@ -437,7 +487,8 @@ def build():
             got_any = True
             for nm in names:
                 info = sankei_info[nm]
-                register_truck(nm, info["desc"], info["dish"], info["link"], info["img"])
+                register_truck(nm, describe_from_dish(info["dish"], "Tokyo Sankei Building"),
+                                info["dish"], info["link"], info["img"])
                 sched[label].append(nm)
         else:
             sched[label] = "NP"
